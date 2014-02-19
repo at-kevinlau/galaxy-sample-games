@@ -7,6 +7,6 @@ Type ``npm start`` to run, go to http://0.0.0.0:1337/static/button_test.html to 
 WIP - progress paused until v1.
 
 TODO:
-1. Implement API usage into all sample games
-2. Remove some extra modules from the copy/pasted galaxy-api server
-3. Install some of the libraries globally and remove them from here
+* Implement API usage into all sample games
+* Remove some extra modules from the copy/pasted galaxy-api server
+* Install some of the libraries globally and remove them from here
