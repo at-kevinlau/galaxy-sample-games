@@ -9,4 +9,4 @@ WIP - progress paused until v1.
 TODO:
 * Implement API usage into all sample games
 * Remove some extra modules from the copy/pasted galaxy-api server
-* Install some of the libraries globally and remove them from here
+* Remove some of the libraries (and require installing them globally on a local machine instead)
