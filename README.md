@@ -6,6 +6,8 @@ Type ``npm start`` to run, go to http://0.0.0.0:1337/static/button_test.html to 
 
 Alternatively, try http://at-kevinlau.github.io/galaxy-sample-games/button_test.html
 
+If nothing seems to be working and an error about already being authenticated shows up in the console, try deleting the 'authenticated' key in redis.
+
 WIP - progress paused until v1.
 
 TODO:
