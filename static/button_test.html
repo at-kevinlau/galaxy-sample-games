@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Greatest game ever (API example page)</title>
+  </head>
+  <body>
+    <ul id="pings"></ul>
+    <script type="text/javascript">
+    <!--
+    // for raw requests
+    var webSocket;
+    window.onload = function() {
+        webSocket = new WebSocket("ws://localhost:5000");
+    
+        webSocket.onmessage = function(e) {
+            console.log("Got response: " + e.data);
+        }
+    }
+    -->
+    </script>
+    <h1>Click buttons to do API things</h1>
+    <h2>Send raw requests</h2>
+    <button onclick="webSocket.send('Hello, world!');">
+      Hello, world!
+    </button>
+    <button onclick="webSocket.send(JSON.stringify({type:'auth'}));">
+      Send token-less auth request (should fail)
+    </button>
+    <button onclick="webSocket.send(JSON.stringify({type:'playing',game:'lolbuttons'}));">
+      Start playing 'lolbuttons'
+    </button>
+    <button onclick="webSocket.send(JSON.stringify({type:'notPlaying'}));">
+      Stop playing
+    </button>
+    <button onclick="webSocket.send(JSON.stringify({type:'score', board:'?', value:'999'}));">
+      Send scoreboard score '999' on board '?'
+    </button>
+
+    <h2>API requests</h2>
+    <script src="http://localhost:5000/static/include.js"></script>
+    <script type="text/javascript">
+    <!--
+    navigator.game.configure('buttontest');
+    -->
+    </script>
+    <p>
+      <button onclick="navigator.game.authenticate();">Authenticate (already done on page load)</button>
+    </p>
+
+    <p>
+      <button onclick="navigator.game.playing();">Start playing</button>
+    </p>
+
+    <p>
+      <script type="text/javascript">
+      <!--
+      function requestFriends() {
+          navigator.game.getFriends().then(function (data)  {
+             // success handler goes here
+              if (!data || data.length <= 0) {
+                  data = "No friends :(";
+              }
+              alert('Online friends with this game:\n' + data);
+          }, function (data) {
+              // failure handler goes here
+          })
+      }
+
+      function requestFriendsPlaying() {
+          navigator.game.getFriendsPlaying().then(function (data)  {
+              // success handler goes here
+              if (!data || data.length <= 0) {
+                  data = "No friends :(";
+              }
+              alert('Online friends playing this game:\n' + data);
+          }, function (data) {
+            // failure handler goes here
+          })
+      }
+      -->
+      </script>
+      <button onclick="requestFriends();">Get friends that have played this game</button>
+      <button onclick="requestFriendsPlaying();">Get friends playing this game right now</button>
+    </p>
+
+    <p>
+      <script type="text/javascript">
+      <!--
+      function sendBlobToFriend(form) {
+          navigator.game.postFriend(form.friend_id.value, form.blob.value);
+      }
+      -->
+      </script>
+      <form>
+        <input type="text" name="friend_id" placeholder="Friend ID">
+        <input type="text" name="blob" placeholder='{"key": "value"}'>
+        <br />
+        <input type="button" onclick="sendBlobToFriend(this.form);" value="Post JSON blob to friend">
+      </form>
+    </p>
+
+    <p>
+      <script type="text/javascript">
+      <!--
+      function updScore(form) {
+          navigator.game.updateScore(form.board.value, form.inc.value);
+      }
+      -->
+      </script>
+      <form>
+        <input type="text" name="board" placeholder="Board">
+        <input type="text" name="inc" placeholder="Increment">
+        <br />
+        <input type="button" onclick="updScore(this.form);" value="Update score on leaderboard">
+      </form>
+    </p>
+
+    <p>
+      <script type="text/javascript">
+      <!--
+      function storeValue(form) {
+          navigator.game.store(form.sType.value, form.val.value);
+      }
+      function retrieveValue(form) {
+          navigator.game.retrieve(form.rType.value).then(function (data)  {
+              // success handler goes here
+              alert('Retrieved value:\n' + data);
+          }, function (data) {
+              // failure handler goes here
+          })
+      }
+      -->
+      </script>
+      <form>
+        <input type="text" name="sType" placeholder="Type">
+        <input type="text" name="val" placeholder="Value">
+        <br />
+        <input type="button" onclick="storeValue(this.form);" value="Store value to local storage">
+        <br />
+        <input type="text" name="rType" placeholder="Type">
+        <br />
+        <input type="button" onclick="retrieveValue(this.form);" value="Retrieve value from local storage">
+      </form>
+    </p>
+
+    <p>
+      <button onclick="navigator.game.donePlaying();">Finish playing game</button>
+    </p>
+
+  </body>
+</html>
